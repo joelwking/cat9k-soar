@@ -29,7 +29,7 @@ COPY ./local.rules /etc/snort/rules/local.rules
 # Add Python code to the image
 #
 RUN mkdir -p /app
-COPY parse_alerts.* /app
+COPY parse_alerts.* /app/
 WORKDIR /app
 
 #
