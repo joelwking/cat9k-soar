@@ -42,8 +42,9 @@ ENV INTERFACE eth0
 #
 # Execution
 #
-# ENTRYPOINT ["snort"]
+ENTRYPOINT ["/bin/bash"]
+CMD ['parse_alerts.sh']
+
 # CMD ["-v", "-i", "echo ${INTERFACE}", "-c", "/etc/snort/snort.conf", "-D"]
 #
-# snort  -q -i eth0 -c /etc/snort/snort.conf -K ascii
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
