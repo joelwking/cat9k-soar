@@ -1,0 +1,47 @@
+#
+#     Copyright (c) 2019 World Wide Technology, LLC
+#     All rights reserved.
+#
+#     author: joel.king@wwt.com (@joelwking)
+#     written:  4 September 2019
+#
+FROM ubuntu:16.04
+
+MAINTAINER @joelwking
+LABEL version=".99"
+
+#
+# Install software
+#
+RUN apt-get update && apt-get install -y python-pip
+RUN DEBIAN_FRONTEND=noninteractive apt-get -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install snort
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
+RUN pip install requests
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim
+
+#
+# Add the Snort local.rules and the configuration file
+#
+COPY ./snort.conf /etc/snort/snort.conf
+COPY ./local.rules /etc/snort/rules/local.rules
+
+#
+# Add Python code to the image
+#
+RUN mkdir -p /app
+COPY parse_alerts.* /app
+WORKDIR /app
+
+#
+# Environment variables
+#
+ENV INTERFACE eth0
+
+#
+# Execution
+#
+# ENTRYPOINT ["snort"]
+# CMD ["-v", "-i", "echo ${INTERFACE}", "-c", "/etc/snort/snort.conf", "-D"]
+#
+# snort  -q -i eth0 -c /etc/snort/snort.conf -K ascii
+CMD ["/bin/bash"]

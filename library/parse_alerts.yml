@@ -1,0 +1,13 @@
+---
+#
+#  configuration file for parse_alerts.py
+#      
+alert_csv: /var/log/snort/alert.csv
+msg_tag: '__cat9k_'
+
+phantom:
+    short_name: ec2
+    ph_auth_token: "p9d+65AW77775erAW3MlXTSOAROa4gIaCIi081Rx7Lg="
+    public_ip: "192.0.2.1"
+    public_dns: "ec2-192-0-2-1.compute-1.amazonaws.com"
+    container_id: FUTURE
