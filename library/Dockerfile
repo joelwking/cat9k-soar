@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y python-pip
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install snort
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
 RUN pip install requests
+RUN pip install pyyaml
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim
 
 #
@@ -30,6 +31,7 @@ COPY ./local.rules /etc/snort/rules/local.rules
 #
 RUN mkdir -p /app
 COPY parse_alerts.* /app/
+ADD https://raw.githubusercontent.com/joelwking/Phantom-Cyber/master/REST_ingest/PhantomIngest.py /app/PhantomIngest.py
 WORKDIR /app
 
 #
