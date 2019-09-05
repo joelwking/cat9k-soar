@@ -28,7 +28,7 @@ COPY ./snort.conf /etc/snort/snort.conf
 COPY ./local.rules /etc/snort/rules/local.rules
 
 #
-# Add Python code to the image
+# Add Python code and configuration file
 #
 RUN mkdir -p /app
 COPY parse_alerts.* /app/
@@ -42,9 +42,5 @@ ENV INTERFACE eth0
 
 #
 # Execution
-#
-# ENTRYPOINT ['/bin/bash']
-#
-# CMD ['parse_alerts.sh']
 #
 CMD ["/bin/bash", "parse_alerts.sh"]
