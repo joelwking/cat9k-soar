@@ -200,7 +200,7 @@ def main():
     #
     # Tail the Snort Alert file (in CSV format) process only new records
     #
-    with open(args.get('alert_csv'), 'r') as alert_file:
+    with open(args.get('alert_csv','/var/log/snort/alert.csv'), 'r') as alert_file:
         for EOF, line in readlines_then_tail(alert_file):
             if EOF:
                 process_alert(line, phantom, args)

@@ -8,7 +8,8 @@
 FROM ubuntu:16.04
 
 MAINTAINER @joelwking
-LABEL version=".99"
+
+LABEL version=".99" description="Code for Catalyst"
 
 #
 # Install software
@@ -42,9 +43,8 @@ ENV INTERFACE eth0
 #
 # Execution
 #
-ENTRYPOINT ["/bin/bash"]
-CMD ['parse_alerts.sh']
-
-# CMD ["-v", "-i", "echo ${INTERFACE}", "-c", "/etc/snort/snort.conf", "-D"]
+# ENTRYPOINT ['/bin/bash']
 #
-# CMD ["/bin/bash"]
+# CMD ['parse_alerts.sh']
+#
+CMD ["/bin/bash", "parse_alerts.sh"]
