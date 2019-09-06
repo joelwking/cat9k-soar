@@ -61,3 +61,33 @@ root         8     0  0 17:09 pts/1    00:00:00 /bin/bash
 root        23     8  0 17:11 pts/1    00:00:01 snort -q -i eth0 -c /etc/snort/snort.conf -K ascii
 root        26     8  0 17:16 pts/1    00:00:00 ps -ef
 
+### Saving the image for deployment on the Cat9K
+
+```
+$ docker save -o cat9k.tar  b8b2a96ebf80
+```
+
+### executing on Cat9K
+
+
+https://developer.cisco.com/docs/app-hosting/#!getting-started-with-docker-applications-deployment/install-activate-and-start-app
+
+`app-hosting install appid SOAR package usbflash:cat9k.tar`
+
+https://success.docker.com/article/multiple-docker-networks
+```
+interface AppGigabitEthernet 1/0/1
+   switchport mode trunk
+
+ app-hosting appid SOAR
+    app-vnic AppGigabitEthernet trunk
+       guest-interface eth1
+```       
+
+```
+app-hosting activate appid SOAR
+```
+
+```
+app-hosting start appid SOAR
+```

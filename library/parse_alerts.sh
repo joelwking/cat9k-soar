@@ -8,7 +8,7 @@
 #
 #  Start Snort in the background
 #
-snort -q -i echo ${INTERFACE}  -c /etc/snort/snort.conf -K ascii > /dev/null 2>&1 &
+snort -q -i echo ${INTERFACE}  -c /etc/snort/snort.conf -N > /dev/null 2>&1 &
 #
 #  Start monitoring the alert file
 #

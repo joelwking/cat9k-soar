@@ -4,4 +4,6 @@
 # ----------------
 # This file intentionally does not come with signatures.  Put your local
 # additions here.
+#
 alert icmp any any -> any any (msg:"__cat9K_ICMP test"; sid:1000001; rev:1; classtype:icmp-event;)
+alert tcp any any -> any 23 (msg:”__cat9K_TCP Port Scanning”; sid:1000006; rev:1;)
