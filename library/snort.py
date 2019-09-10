@@ -5,40 +5,29 @@
 #     All rights reserved.
 #
 #     author: joel.king@wwt.com (@joelwking)
-#     written:  3 September 2019
+#     written:  9 September 2019
 #
-#     description: create Phantom Cyber containers and artifacts from a Snort alert file
+#     description: snort.py
 #
-#     usage:
-#
-#        $ python2.7 parse_alerts.py <parse_alerts.yml>
-#
-#     The rule file for Snort has entries which look like the following:
-#
-#        alert tcp any any -> any 80 (tos:184; sid:1000985; msg: "__S_tcp80";)
-#        alert tcp any any -> any 443 (tos:184; sid:1000986; msg: "__S_tcp443"
-#        alert tcp 192.168.0.0/16 any -> any 25 (content: "hacking"; msg: "__S_tcp25_hacking"; sid:1000987;)
-#
-#     The configuration file is in YAML, and specifies what records to select from the Snort alert file
-#     based on the message tag (msg_tag). These alerts are then loaded to Phantom Cyber using the REST API.
-#
-__version__ = '.99'
-SLEEP_INTERVAL = .333                                      # a fraction of a second
-ERROR = 'ERROR'
+# from framework.base_connector import SOAR
+from base_connector import SOAR
 
+try:
+    from snort_constants import *                          # file name would be ./framework_consts.py
+except Importerror                                         # the constants are optional
+    pass
 
-#
-# System imports
-#
-import yaml
-import time
-import sys
-import signal
+class Snort(SOAR):
 
-
-class SOAR(object):
+    BANNER = "SNORT"
 
     def __init__(self):
+        """
+        Instance variables
+        """
+        # Call the SOAR init first
+        super(Snort, self).__init__()
+
 
     def tail(self, file_):
         """
@@ -69,8 +58,8 @@ class SOAR(object):
                 EOF = True                                     # We don't proccess entries in the file until we call tail
                 tail(file_)
 
-
-    def process_alert(self, line, phantom, args):
+    
+    def process_alert(self, phantom, line):
         """
             Input is a Snort alert record, in CSV format
             Credit to: https://www.geeksforgeeks.org/python-convert-two-lists-into-a-dictionary/
@@ -85,26 +74,61 @@ class SOAR(object):
         alert = {keys[i]: value[i] for i in range(len(value))}
 
         if args.get('msg_tag') in alert.get('msg'):                                    # searching for '__I_' in the alert file
-            if len(keys) == len(value):
-                update_phantom(alert, phantom)
-            else:
+            if len(keys) != len(value):
                 msg('WARN: length of keys does not match CSV values provided, ignoring record: {}'.format(value))
+                return
+            else:
+                self.create_phantom_container(phantom)
+
+                artifact = dict(name=alert.get('msg'),
+                                source_data_identifier='{}:{}'.format(alert.get('sig id'), alert.get('sig rev')),
+                                description='Code-for-Catalyst challenge',
+                                tags=['snort', 'demo']
+                                )
+
+                cef = dict(sourceAddress=alert.get('src'),
+                           sourcePort=alert.get('srcport'),
+                           smac=alert.get('ethsrc'),
+                           destinationAddress=alert.get('dst'),
+                           destinationPort=alert.get('dstport'),
+                           dmac=alert.get('ethdst'),
+                           proto=alert.get('proto')
+                           )
+
+                return self.create_phantom_artifact(phantom, artifact=artifact, cef=cef, meta_data=dict(record=alert))
         return
 
 
-    def monitor():
-        """
-            Main program
-        """
 
+    def handle_action(self):
+        """
+        """
+        self.msg('INFO: entering handle_action')
         #
         # Tail the Snort Alert file (in CSV format) process only new records
         #
-        with open(args.get('alert_csv','/var/log/snort/alert.csv'), 'r') as alert_file:
-            for EOF, line in readlines_then_tail(alert_file):
+        phantom = create_phantom_object(args.get('phantom').get('public_ip'), args.get('phantom').get('ph_auth_token'))
+
+        with open(args.get('alert_csv', '/var/log/snort/alert.csv'), 'r') as alert_file:
+            for EOF, line in self.readlines_then_tail(alert_file):
                 if EOF:
-                    process_alert(line, phantom, args)
+                    self.process_alert(phantom, line)
                 else:
                     pass
 
         return
+
+
+# =============================================================================================
+# 
+# =============================================================================================
+
+if __name__ == '__main__':
+
+    import sys
+
+    connector = Snort()
+    connector.msg(connector.BANNER)
+    connector.handle_action()
+
+    exit(0)    

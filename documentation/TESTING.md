@@ -64,15 +64,158 @@ root        26     8  0 17:16 pts/1    00:00:00 ps -ef
 ### Saving the image for deployment on the Cat9K
 
 ```
-$ docker save -o cat9k.tar  b8b2a96ebf80
+$ docker save -o soar.tar  b8b2a96ebf80
 ```
+
+### Verify the app will run
+
+administrator@olive-iron:~/docker/cat9k-soar/library$ docker run -it --name soar --env INTERFACE=eth0  joelwking/soar:1.0
+root@abcde6f1934e:/app#
+root@abcde6f1934e:/app#
+root@abcde6f1934e:/app# ls
+Dockerfile          PhantomIngest.py   framework.py            local.rules      parse_alerts.sh   snort.conf
+Dockerfile_woSnort  base_connector.py  framework_constants.py  parse_alerts.py  parse_alerts.yml  snort.py
+root@abcde6f1934e:/app# python framework.py
+Mon Sep  9 13:36:49 2019 | Hello world
+Mon Sep  9 13:36:49 2019 | SNORT
+Mon Sep  9 13:36:49 2019 | INFO: entering _test_connectivity
+Mon Sep  9 13:36:49 2019 | INFO: entering handle_action
+root@abcde6f1934e:/app# ENV
+
+
+
+
+### Upload to the linux box in the sandbox
+```
+[developer@devbox tmp]$ ls -salt
+total 468268
+468260 -rw-r--r--   1 developer docker 479494656 Sep  9 07:19 soar.tar
+```
+
+### Prereqs
+https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup
+
+Before Application Hosting can be enabled on Cat9K, a Cisco certified USB3.0 Flash Drive must be installed in the device back-panel USB3.0 port. Application hosting only works on the back-panel USB3.0.
+```
+cat9k#show hardware | include flash
+System image file is "flash:packages.conf"
+11264000K bytes of Flash at flash:.
+117219783K bytes of USB Flash at usbflash1:.
+```
+
+cat9k#cd usbflash1:/
+cat9k#pwd
+usbflash1:/
+
+The Switch must be running release version 16.12. Docker App is supported only on release 16.12, as this version supports native docker engine. 
+```
+cat9k#show ver | inc IOS XE
+Cisco IOS XE Software, Version 16.12.01ah1
+```
+
+### Licensing
+
+Technology Package License Information:
+
+------------------------------------------------------------------------------
+Technology-package                                     Technology-package
+Current                        Type                       Next reboot
+------------------------------------------------------------------------------
+network-advantage       Smart License                    network-advantage
+dna-advantage           Subscription Smart License       dna-advantage
+
+
+### Verify services are running
+
+cat9k#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+cat9k(config)#iox
+cat9k(config)#end
+cat9k#show iox-service
+
+IOx Infrastructure Summary:
+---------------------------
+IOx service (CAF)    : Running
+IOx service (HA)     : Running
+IOx service (IOxman) : Running
+Libvirtd             : Running
+Dockerd              : Running
+
+
+### Copy image
+
+I uploaded the .tar file to the developer sandbox Linux host (from my laptop) as the linux to linux transfer is quicker over the Internet from the cat 9K
+
+copy scp://developer@10.10.20.20://tmp/soar.tar usbflash1://soar.tar vrf Mgmt-vrf
+...
+479494656 bytes copied in 405.028 secs (1183856 bytes/sec)
+cat9k#
+
 
 ### executing on Cat9K
 
 
 https://developer.cisco.com/docs/app-hosting/#!getting-started-with-docker-applications-deployment/install-activate-and-start-app
 
-`app-hosting install appid SOAR package usbflash:cat9k.tar`
+`app-hosting install appid SOAR package usbflash1:soar.tar`
+
+cat9k#app-hosting install appid SOAR package usbflash1:soar.tar
+Installing package 'usbflash1:soar.tar' for 'SOAR'. Use 'show app-hosting list' for progress.
+
+### show device
+```
+cat9k#show app-hosting device
+USB port          Device name           Available
+      1            Front_USB_1         true
+```
+
+### show app-hosting infra
+cat9k#show app-hosting infra
+App signature verification: disabled
+Internal working directory: /vol/usb1/iox
+
+### show app-hosting resource
+
+cat9k#show app-hosting resource
+CPU:
+  Quota: 7400(Units)
+  Available: 7400(Units)
+Memory:
+  Quota: 2048(MB)
+  Available: 2048(MB)
+Storage space:
+  Total: 120000(MB)
+  Available: 120000(MB)
+
+
+### show app-hosting detail
+
+
+### copy to flash
+cat9k#dir flash:/soar.tar
+Directory of flash:/soar.tar
+
+262181  -rw-        479494656  Sep 10 2019 00:30:11 +00:00  soar.tar
+
+cat9k#dir usbflash1:soar.tar
+Directory of usbflash1:/soar.tar
+
+   12  -rw-        479494656  Sep 10 2019 00:12:34 +00:00  soar.tar
+
+118014062592 bytes total (111303131136 bytes free)
+
+
+### Install app
+
+cat9k#app-hosting install appid SOAR package flash:soar.tar
+Installing package 'flash:soar.tar' for 'SOAR'. Use 'show app-hosting list' for progress.
+
+
+cat9k#show app-hosting utilization  appid SOAR
+% Error: The application: SOAR, does not exist
+
+
+
 
 https://success.docker.com/article/multiple-docker-networks
 ```
