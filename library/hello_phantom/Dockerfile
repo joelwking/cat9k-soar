@@ -33,4 +33,4 @@ WORKDIR /app
 #
 # Execution
 #
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "python2.7", "hello.py"]
