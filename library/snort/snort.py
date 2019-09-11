@@ -107,7 +107,7 @@ class Snort(SOAR):
         #
         # Tail the Snort Alert file (in CSV format) process only new records
         #
-        phantom = create_phantom_object(args.get('phantom').get('public_ip'), args.get('phantom').get('ph_auth_token'))
+        phantom = self.create_phantom_object(args.get('phantom').get('public_ip'), args.get('phantom').get('ph_auth_token'))
 
         with open(args.get('alert_csv', '/var/log/snort/alert.csv'), 'r') as alert_file:
             for EOF, line in self.readlines_then_tail(alert_file):

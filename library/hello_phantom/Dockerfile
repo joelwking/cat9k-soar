@@ -9,13 +9,12 @@ FROM ubuntu:16.04
 
 MAINTAINER @joelwking
 
-LABEL version=".99" description="Code for Catalyst"
+LABEL version=".99" description="Code for Catalyst, hello Phantom"
 
 #
 # Install software
 #
 RUN apt-get update && apt-get install -y python-pip
-# RUN DEBIAN_FRONTEND=noninteractive apt-get -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install snort
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
 RUN pip install requests
 RUN pip install pyyaml
@@ -23,27 +22,14 @@ RUN pip install pyyaml
 # Remove vim once debugging is complete
 #
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim
-
-#
-# Add the Snort local.rules and the configuration file
-#
-COPY ./snort.conf /etc/snort/snort.conf
-COPY ./local.rules /etc/snort/rules/local.rules
-
 #
 # Add Python code and configuration file
 #
 RUN mkdir -p /app
-# COPY parse_alerts.* /app/
 COPY * /app/
+COPY ./connector/*.py /app/
 ADD https://raw.githubusercontent.com/joelwking/Phantom-Cyber/master/REST_ingest/PhantomIngest.py /app/PhantomIngest.py
 WORKDIR /app
-
-#
-# Environment variables
-#
-ENV INTERFACE eth0
-
 #
 # Execution
 #
