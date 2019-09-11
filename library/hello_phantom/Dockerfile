@@ -3,7 +3,12 @@
 #     All rights reserved.
 #
 #     author: joel.king@wwt.com (@joelwking)
-#     written:  4 September 2019
+#     written:  11 September 2019
+#
+#     usage:
+#
+#       from directory `cat9k-soar/library`
+#       docker build -f ./hello_phantom/Dockerfile -t  joelwking/hello:0.9 .
 #
 FROM ubuntu:16.04
 
@@ -26,11 +31,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim
 # Add Python code and configuration file
 #
 RUN mkdir -p /app
-COPY * /app/
+COPY ./hello_phantom/* /app/
 COPY ./connector/*.py /app/
 ADD https://raw.githubusercontent.com/joelwking/Phantom-Cyber/master/REST_ingest/PhantomIngest.py /app/PhantomIngest.py
 WORKDIR /app
 #
 # Execution
 #
-CMD ["/bin/bash", "python2.7", "hello.py"]
+CMD ["python2.7", "hello.py"]
