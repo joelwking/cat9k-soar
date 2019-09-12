@@ -7,12 +7,13 @@
 #     author: joel.king@wwt.com (@joelwking)
 #     written:  3 September 2019
 #
-#     description: TODO
+#     description: Python superclass to handle common functions across all applications
+
 #
 # Application imports
 #
 import PhantomIngest as ingest
-
+#
 # System imports
 #
 import yaml
@@ -28,6 +29,7 @@ class SOAR(object):
 
     def __init__(self):
         """
+            Enable interrupts and attempt to load the configuration file
         """
         self.version = SOAR.__version__
         self.enable_interrupts()
@@ -47,9 +49,7 @@ class SOAR(object):
 
     def enable_interrupts(self):
         """
-        #
-        #  Interrupts
-        #
+            Called initially to enable interrupts and generate banner messages
         """
         self.msg("INFO: {} {}".format(sys.argv[0], SOAR.__version__))
         signal.signal(signal.SIGINT, self.sig_handler)              # Enable Interrupt handler
@@ -86,7 +86,7 @@ class SOAR(object):
 
     def test_connectivity(self):
         """
-        Test connecitivity to the Phantom instance
+            Test connecitivity to the Phantom instance
         """
         self.msg('INFO: entering test_connectivity')
         return None
@@ -101,7 +101,7 @@ class SOAR(object):
 
     def create_phantom_artifact(self, phantom, artifact=dict(), cef=dict(), meta_data=dict()):
         """
-            Add the Snort alert as an artifact to the Phantom container, CEF is Common Event Format.
+            Add an artifact to the Phantom container, CEF is Common Event Format.
             Refer to https://<phantom>/docs/rest/cef for the valid fields.
         """
         artifact_id = None
@@ -116,7 +116,7 @@ class SOAR(object):
 
     def create_phantom_container(self, phantom, container=dict()):
         """
-            Input is a dictionary with input to create the container
+            Input is a dictionary with data to create the container
         """
 
         if phantom.container_id:

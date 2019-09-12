@@ -53,7 +53,7 @@ At a minimum, the REST Data Source app will need to be enabled and configured on
 
 Build instructions for each app in the `library` directory are included the `README.md` file.
 
-Instructions for deploying the app(s) are available on DevNet as [Application Hosting in the Enterprise](https://developer.cisco.com/docs/app-hosting)
+Instructions for deploying the app(s) are available on DevNet as [Application Hosting in the Enterprise](https://developer.cisco.com/docs/app-hosting).
 
 ## Configuration
 
@@ -71,7 +71,7 @@ If a particular [DevNet Sandbox](https://developer.cisco.com/sandbox/) or [Learn
 
 ## Known issues
 
-Use the the [Issue Tracker](./issues), to open a new issue or provide feedback. 
+Use the the [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues), to open a new issue or provide feedback. 
 
 * The DevNet Sandbox restricts access to the Internet from the sandbox labs, limiting access to an instance of Phantom deployed in AWS/cloud or the Internet.
 * Note the [restrictions](https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup) on Catalyst hardware and software.
@@ -79,13 +79,20 @@ Use the the [Issue Tracker](./issues), to open a new issue or provide feedback.
 
 ## Getting help
 
-If you have questions, concerns, bug reports, etc., please file an issue in this repository's [Issue Tracker](./issues).
+If you have questions, concerns, bug reports, etc., please file an issue in this repository's [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues).
 
 ## Getting involved
 
-This section should detail why people should get involved and describe key areas you are currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building important pieces, etc. Include information on how to setup a development environment if different from general installation instructions.
+This repository highlights the emerging technical skills for a new kind of network engineer who must have a basic understanding of applications, programming and infrastructure, both on-prem and in a cloud. Additionally, enabling the network to be a source of telemetry data will be instrumental in improving the security posture of any organization. This solution provides a network engineer with access to a framework which enables skill development in the following areas:
 
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md).
+* Python programming
+* Source Control Management systems (Git)
+* Linux
+* Cloud, Virtualization and containers (Docker)
+
+We encourage all network and security operations engineers to use this repository as a guide and framework to develop and enable additional use cases and enable additional functionality
+
+Refer to the instructions on how to contribute in [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## Credits and references
 
