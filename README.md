@@ -22,6 +22,10 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 **Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom *containers*) and security data (Phantom *artifacts*) on the Splunk Phantom platform. Within the `library` directory, there are two sub-directories, `hello_phantom` and `snort`. 
 
+#### Topology Diagram
+
+![](./documentation/images/cat9k-soar_topology.png)
+
 #### Software
 
 The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py`.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to address the Phantom REST APIs. 
@@ -36,9 +40,6 @@ This Docker app is a basic 'hello world' example which creates an event (contain
 
 This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, free and lightweight network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format.
 
-#### Topology Diagram
-
-![](./documentation/images/cat9k-soar.png)
 
 ### Status
 
