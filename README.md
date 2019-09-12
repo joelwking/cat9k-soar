@@ -8,13 +8,24 @@ This project uses the application hosting feature of the Catalyst 9K as a distri
 
 ### Technology Value
 
+Application hosting at the network edge, on the Cisco Catalyst 9300 series switches, enables the network manager to deploy applications on an x86 CPU for the purpose of analyzing and gathering telemetry about traffic on the network. Container based applications can be developed and tested using Docker on Linux systems, then deployed on the Catalyst 9300 series switches, providing the network and security operations a distributed cyber security interface to the enterprise security orchestration, automation and response (SOAR) platform.
+
+The `cat9k-soar` project is a sample code base for ingesting data collected at the network edge as security incidents, managed and acted upon by Splunk Phantom.
+
 ### Components
 
-**SOAR** Splunk Phantom: Security Orchestration, Automation and Response (SOAR)
+**SOAR**: The acronym SOAR, Security Orchestration, Automation and Response is a process and concept of managing contextual data associated with cyber attacks and security related incidents. The SOAR platform **Splunk Phantom** fundamental to this solution. World Wide Technolgy has developed both apps and data ingest [software](https://github.com/joelwking/Phantom-Cyber) for the **Splunk Phantom** platform, which is leveraged in this solution.
 
-**Linux Containers** Docker:
+**Linux Containers**: specifically Docker, building software solutions using Docker containerization shortens development cycles and decreases the barriers to deploying apps on the target systems. In this solution, applications are developed and packaged on Linux systems and then installed on the network edge running on Catalyst 9300 series switches.
 
-**Application Hosting** Catalyst 9K
+**Application Hosting**: The Cisco Catalyst 9300 series switches now supports application hosting using reserved memory and CPU, running as a separate Linux process, isolated from the IOS XE operating system. This solution is beneficial to the network manager as it does not require separate computing machines to run the software on the network edge. 
+
+**Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom containers) and security data (Phantom artifacts) on the Splunk Phantom platform. 
+
+Splunk Phantom: 
+
+  Security Operations and Incident Response consists of processes, resources and solutions that prevent, detect and respond to cyber attacks and privacy/security incidents, including security analytics, incident response, and applicable threat intelligence.
+
 
 ### Status
 
@@ -22,9 +33,6 @@ trigger Phantom into action, such as incidents, threat indicators, vulnerabiliti
 Splunk Phantom Security Orchestration
 
 
-# Project Title
-
-Put a meaningful, short, plain-language description of what this code is trying to accomplish, what is the business driver for implementation, and in general why it matters. 
 
 Pro tips: 
 
