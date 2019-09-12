@@ -9,7 +9,7 @@ FROM ubuntu:16.04
 
 MAINTAINER @joelwking
 
-LABEL version=".99" description="Code for Catalyst"
+LABEL version="1.0" description="Code for Catalyst"
 
 #
 # Install software
@@ -31,7 +31,9 @@ COPY ./local.rules /etc/snort/rules/local.rules
 # Add Python code and configuration file
 #
 RUN mkdir -p /app
-COPY parse_alerts.* /app/
+COPY ./snort/* /app/
+COPY ./connector/*.py /app/
+
 ADD https://raw.githubusercontent.com/joelwking/Phantom-Cyber/master/REST_ingest/PhantomIngest.py /app/PhantomIngest.py
 WORKDIR /app
 
@@ -43,4 +45,4 @@ ENV INTERFACE eth0
 #
 # Execution
 #
-CMD ["/bin/bash", "parse_alerts.sh"]
+CMD ["/bin/bash", "snort.sh"]

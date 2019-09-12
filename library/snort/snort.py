@@ -9,12 +9,16 @@
 #
 #     description: snort.py
 #
-# from framework.base_connector import SOAR
+# 
+# Import the SOAR class from the base_connector.py file
+#
 from base_connector import SOAR
-
+#
+# Optionally import user defined constants from hello_constants.py
+#
 try:
-    from snort_constants import *                          # file name would be ./framework_consts.py
-except Importerror                                         # the constants are optional
+    from snort_constants import *
+except ImportError:
     pass
 
 class Snort(SOAR):
@@ -56,7 +60,7 @@ class Snort(SOAR):
                 yield (EOF, line)
             else:                                              # Only start pushing flows for the appended lines
                 EOF = True                                     # We don't proccess entries in the file until we call tail
-                tail(file_)
+                self.tail(file_)
 
     
     def process_alert(self, phantom, line):
@@ -73,9 +77,9 @@ class Snort(SOAR):
 
         alert = {keys[i]: value[i] for i in range(len(value))}
 
-        if args.get('msg_tag') in alert.get('msg'):                                    # searching for '__I_' in the alert file
+        if self.args.get('msg_tag') in alert.get('msg'):
             if len(keys) != len(value):
-                msg('WARN: length of keys does not match CSV values provided, ignoring record: {}'.format(value))
+                self.msg('WARN: length of keys does not match CSV values provided, ignoring record: {}'.format(value))
                 return
             else:
                 self.create_phantom_container(phantom)
@@ -107,9 +111,9 @@ class Snort(SOAR):
         #
         # Tail the Snort Alert file (in CSV format) process only new records
         #
-        phantom = self.create_phantom_object(args.get('phantom').get('public_ip'), args.get('phantom').get('ph_auth_token'))
+        phantom = self.create_phantom_object(self.args.get('phantom').get('public_ip'), self.args.get('phantom').get('ph_auth_token'))
 
-        with open(args.get('alert_csv', '/var/log/snort/alert.csv'), 'r') as alert_file:
+        with open(self.args.get('alert_csv', '/var/log/snort/alert.csv'), 'r') as alert_file:
             for EOF, line in self.readlines_then_tail(alert_file):
                 if EOF:
                     self.process_alert(phantom, line)
@@ -119,16 +123,10 @@ class Snort(SOAR):
         return
 
 
-# =============================================================================================
-# 
-# =============================================================================================
 
 if __name__ == '__main__':
 
-    import sys
-
     connector = Snort()
-    connector.msg(connector.BANNER)
     connector.handle_action()
 
     exit(0)    

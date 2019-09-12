@@ -23,7 +23,7 @@ import signal
 
 class SOAR(object):
 
-    __version__ = '.99'
+    __version__ = '1.0'
     ERROR = 'ERROR'
 
     def __init__(self):
@@ -88,7 +88,7 @@ class SOAR(object):
         """
         Test connecitivity to the Phantom instance
         """
-        self.msg('INFO: entering _test_connectivity')
+        self.msg('INFO: entering test_connectivity')
         return None
 
 
@@ -108,9 +108,9 @@ class SOAR(object):
 
         try:
             artifact_id = phantom.add_artifact(phantom.container_id, cef, meta_data, **artifact)
-            msg('INFO: Added artifact: {} to container: {}'.format(artifact_id, phantom.container_id))
+            self.msg('INFO: Added artifact: {} to container: {}'.format(artifact_id, phantom.container_id))
         except Exception as e:
-            msg('WARN: exception while adding artifact {} {}'.format(e, phantom.content))
+            self.msg('WARN: exception while adding artifact {} {}'.format(e, phantom.content))
 
         return artifact_id
 
