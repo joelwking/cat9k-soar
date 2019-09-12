@@ -30,21 +30,17 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py`.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to address the Phantom REST APIs. 
 
-Sample configuration and credential inputs are read from the YAML file in the respective directories, for example, `library/hello_phantom/hello.yml` specifies the IP address and API key for the Phantom instance.
-
 ##### hello_phantom
 
 This Docker app is a basic 'hello world' example which creates an event (container) in Phantom.
 
 ##### snort
 
-This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, free and lightweight network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format.
-
+This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, free and lightweight network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
 
 ### Status
 
 Alpha 1.0 - The base functionality of the software has been tested and Phantom containers and artifacts can be created by the software running in Docker containers in a Linux host, to a Phantom community instance (version 4.5.15922) deployed in Amazon Web Services (AWS). Additional testing scheduled for the [DevNet Sandbox](https://developer.cisco.com/site/sandbox/) as reservations become available mid-September 2019. 
-
 
 ## Installation
 
@@ -53,13 +49,19 @@ Information on installing and configuring Splunk Phantom is available by joining
 * Phantom Community https://my.phantom.us/
 * Administering Phantom https://www.splunk.com/en_us/training/courses/introduction-to-phantom.html
 
-At a minimum, the REST Data Source app will need to be enabled and configured on the Phantom instance. This app is a custom REST handler to push ingest data such as events and artifacts into Phantom.
+At a minimum, the REST Data Source app will need to be enabled and configured on the Phantom instance. This app is a custom REST handler to allow push/ ingest data such as events and artifacts into Phantom.
 
-Detailed instructions on how to install, configure, and get the project running. Call out any dependencies. This should be frequently tested and updated to make sure it works reliably, accounts for updated versions of dependencies, etc.
+Build instructions for each app in the `library` directory are included the `README.md` file.
+
+Instructions for deploying the app(s) are available on DevNet as [Application Hosting in the Enterprise](https://developer.cisco.com/docs/app-hosting)
 
 ## Configuration
 
-If the code is configurable, describe it in detail, either here or in other documentation that you reference.
+The `base_connector` class SOAR attempts to load a configuration file, by default, using the program name and '.yml' or by a YAML file specified as the first argument to the program. Sample configuration and credential inputs are read from the YAML file in the respective directories, for example, `library/hello_phantom/hello.yml` specifies the IP address and API key for the Phantom instance.
+
+Optionally, variables can be specified and are imported. For example, `snort_constants.py` specifies an interval to wait for new input to arrive in the alert file.
+
+Refer to the README specified for each app for additional information on configuring the app.
 
 ## Usage
 
@@ -67,15 +69,13 @@ Show users how to use the code. Be specific.
 Use appropriate formatting when showing code snippets or command line output.
 If a particular [DevNet Sandbox](https://developer.cisco.com/sandbox/) or [Learning Lab](https://developer.cisco.com/learning-labs/) can be used in to provide a network or other resources to be used with this code, call that out here. 
 
-## How to test the software
-
-Provide details on steps to test, versions of components/depencencies against which code was tested, date the code was last tested, etc. 
-If the repo includes automated tests, detail how to run those tests.
-If the repo is instrumented with a continuous testing framework, that is even better.
-
 ## Known issues
 
-Document any known significant shortcomings with the code. If using the [Issue Tracker](./issues), make that known here and provide any templates or conventions to be followed when opening a new issue. 
+Use the the [Issue Tracker](./issues), to open a new issue or provide feedback. 
+
+* The DevNet Sandbox restricts access to the Internet from the sandbox labs, limiting access to an instance of Phantom deployed in AWS/cloud or the Internet.
+* Note the [restrictions](https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup) on Catalyst hardware and software.
+* The app-hosting service utilizes meta data that will be present only when the Docker save command uses the  *image_name:tag* format. 
 
 ## Getting help
 
@@ -92,27 +92,3 @@ General instructions on _how_ to contribute should be stated with a link to [CON
 1. Projects that inspired you
 2. Related projects
 3. Books, papers, talks, or other sources that have meaningful impact or influence on this code
-
-#===========================================================================
-#===========================================================================
-
-trigger Phantom into action, such as incidents, threat indicators, vulnerabilities, emails, and more. Phantom gives you full access to the contents of your security data for the purposes of automated decision making.
-Splunk Phantom Security Orchestration
-
-Splunk Phantom: 
-
-  Security Operations and Incident Response consists of processes, resources and solutions that prevent, detect and respond to cyber attacks and privacy/security incidents, including security analytics, incident response, and applicable threat intelligence.
-
-Pro tips: 
-
-* Code Exchange displays the first few content lines of your README in the tile it creates for your repo. If you enter a GitHub Description, Code Exchange uses that instead. 
-* Code Exchange works best with READMEs formatted in [GitHub's flavor of Markdown](https://guides.github.com/features/mastering-markdown/). Support for reStructuredText is a work in progress.
-
-Other things you might include:
-
-* Technology stack: Indicate the technological nature of the code, including primary programming language(s) and whether the code is intended as standalone or as a module in a framework or other ecosystem.
-* Status:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where what they can expect from this code.
-* Screenshot: If the code has visual components, place a screenshot after the description; e.g.,
-
-![add-image-here]()
-
