@@ -20,35 +20,39 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 **Application Hosting**: The Cisco Catalyst 9300 series switches now supports application hosting using reserved memory and CPU, running as a separate Linux process, isolated from the IOS XE operating system. This solution is beneficial to the network manager as it does not require separate computing machines to run the software on the network edge. 
 
-**Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom containers) and security data (Phantom artifacts) on the Splunk Phantom platform. 
+**Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom *containers*) and security data (Phantom *artifacts*) on the Splunk Phantom platform. Within the `library` directory, there are two sub-directories, `hello_phantom` and `snort`. 
 
-Splunk Phantom: 
+#### Software
 
-  Security Operations and Incident Response consists of processes, resources and solutions that prevent, detect and respond to cyber attacks and privacy/security incidents, including security analytics, incident response, and applicable threat intelligence.
+The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py`.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to address the Phantom REST APIs. 
 
+Sample configuration and credential inputs are read from the YAML file in the respective directories, for example, `library/hello_phantom/hello.yml` specifies the IP address and API key for the Phantom instance.
+
+##### hello_phantom
+
+This Docker app is a basic 'hello world' example which creates an event (container) in Phantom.
+
+##### snort
+
+This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, free and lightweight network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format.
+
+#### Topology Diagram
+
+![](./documentation/images/cat9k-soar.png)
 
 ### Status
 
-trigger Phantom into action, such as incidents, threat indicators, vulnerabilities, emails, and more. Phantom gives you full access to the contents of your security data for the purposes of automated decision making.
-Splunk Phantom Security Orchestration
-
-
-
-Pro tips: 
-
-* Code Exchange displays the first few content lines of your README in the tile it creates for your repo. If you enter a GitHub Description, Code Exchange uses that instead. 
-* Code Exchange works best with READMEs formatted in [GitHub's flavor of Markdown](https://guides.github.com/features/mastering-markdown/). Support for reStructuredText is a work in progress.
-
-Other things you might include:
-
-* Technology stack: Indicate the technological nature of the code, including primary programming language(s) and whether the code is intended as standalone or as a module in a framework or other ecosystem.
-* Status:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where what they can expect from this code.
-* Screenshot: If the code has visual components, place a screenshot after the description; e.g.,
-
-![add-image-here]()
+Alpha 1.0 - The base functionality of the software has been tested and Phantom containers and artifacts can be created by the software running in Docker containers in a Linux host, to a Phantom community instance (version 4.5.15922) deployed in Amazon Web Services (AWS). Additional testing scheduled for the [DevNet Sandbox](https://developer.cisco.com/site/sandbox/) as reservations become available mid-September 2019. 
 
 
 ## Installation
+
+Information on installing and configuring Splunk Phantom is available by joining the Phantom Community or through training.
+
+* Phantom Community https://my.phantom.us/
+* Administering Phantom https://www.splunk.com/en_us/training/courses/introduction-to-phantom.html
+
+At a minimum, the REST Data Source app will need to be enabled and configured on the Phantom instance. This app is a custom REST handler to push ingest data such as events and artifacts into Phantom.
 
 Detailed instructions on how to install, configure, and get the project running. Call out any dependencies. This should be frequently tested and updated to make sure it works reliably, accounts for updated versions of dependencies, etc.
 
@@ -74,10 +78,6 @@ Document any known significant shortcomings with the code. If using the [Issue T
 
 ## Getting help
 
-Instruct users how to get help with this code; this might include links to an issue tracker, wiki, mailing list, etc.
-
-**Example**
-
 If you have questions, concerns, bug reports, etc., please file an issue in this repository's [Issue Tracker](./issues).
 
 ## Getting involved
@@ -86,41 +86,32 @@ This section should detail why people should get involved and describe key areas
 
 General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md).
 
-
-----
-
-## Licensing info
-
-A license is required for others to be able to use your code. An open source license is more than just a usage license, it is license to contribute and collaborate on code. Open sourcing code and contributing it to [Code Exchange](https://developer.cisco.com/codeexchange/)  requires a commitment to maintain the code and help the community use and contribute to the code. 
-
-Choosing a license can be difficult and depend on your goals for your code, other licensed code on which your code depends, your business objectives, etc.   This template does not intend to provide legal advise. You should seek legal counsel for that. However, in general, less restrictive licenses make your code easier for others to use.
-
-> Cisco employees can find licensing options and guidance [here](https://wwwin-github.cisco.com/eckelcu/DevNet-Code-Exchange/blob/master/GitHubUsage.md#licensing-guidance).
-
-Once you have determined which license is appropriate, GitHub provides functionality that makes it easy to add a LICENSE file to a GitHub repo, either when creating a new repo or by adding to an existing repo.
-
-When creating a repo through the GitHub UI, you can click on *Add a license* and select from a set of [common open source licenses](https://opensource.org/licenses). See [detailed instructions](https://help.github.com/articles/licensing-a-repository/#applying-a-license-to-a-repository-with-an-existing-license).
-
-Once a repo has been created, you can easily add a LICENSE file through the GitHub UI at any time. Simply select *Create New File*, type *LICENSE* into the filename box, and you will be given the option to select from a set of common open source licenses. See [detailed instructions](https://help.github.com/articles/adding-a-license-to-a-repository/).
-
-Once you have created the LICENSE file, be sure to update/replace any templated fields with appropriate information, including the Copyright. For example, the [3-Clause BSD license template](https://opensource.org/licenses/BSD-3-Clause) has the following copyright notice:
-
-`Copyright (c) <YEAR>, <COPYRIGHT HOLDER>`
-
-See the [LICENSE](./LICENSE) for this template repo as an example.
-
-Once your LICENSE file exists, you can delete this section of the README, or replace the instructions in this section with a statement of which license you selected and a link to your license file, e.g.
-
-This code is licensed under the BSD 3-Clause License. See [LICENSE](./LICENSE) for details.
-
-Some licenses, such as Apache 2.0 and GPL v3, do not include a copyright notice in the [LICENSE](./LICENSE) itself. In such cases, a NOTICE file is a common place to include a copyright notice. For a very simple example, see [NOTICE](./NOTICE). 
-
-In the event you make use of 3rd party code, it is required by some licenses, and a good practice in all cases, to provide attribution for all such 3rd party code in your NOTICE file. For a great example, see [https://github.com/cisco/ChezScheme/blob/master/NOTICE]().   
-
-----
-
 ## Credits and references
 
 1. Projects that inspired you
 2. Related projects
 3. Books, papers, talks, or other sources that have meaningful impact or influence on this code
+
+#===========================================================================
+#===========================================================================
+
+trigger Phantom into action, such as incidents, threat indicators, vulnerabilities, emails, and more. Phantom gives you full access to the contents of your security data for the purposes of automated decision making.
+Splunk Phantom Security Orchestration
+
+Splunk Phantom: 
+
+  Security Operations and Incident Response consists of processes, resources and solutions that prevent, detect and respond to cyber attacks and privacy/security incidents, including security analytics, incident response, and applicable threat intelligence.
+
+Pro tips: 
+
+* Code Exchange displays the first few content lines of your README in the tile it creates for your repo. If you enter a GitHub Description, Code Exchange uses that instead. 
+* Code Exchange works best with READMEs formatted in [GitHub's flavor of Markdown](https://guides.github.com/features/mastering-markdown/). Support for reStructuredText is a work in progress.
+
+Other things you might include:
+
+* Technology stack: Indicate the technological nature of the code, including primary programming language(s) and whether the code is intended as standalone or as a module in a framework or other ecosystem.
+* Status:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where what they can expect from this code.
+* Screenshot: If the code has visual components, place a screenshot after the description; e.g.,
+
+![add-image-here]()
+
