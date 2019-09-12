@@ -1,19 +1,26 @@
-# cat9k-soar
-Application Hosting Catalyst 9K interface to Phantom Cyber security orchestration, automation and response (SOAR)
+cat9k-soar
+----------
+Application Hosting on the Catalyst 9K, an interface to Splunk Phantom security orchestration, automation and response (SOAR)
 
-# Code Exchange Repo Template
-This repository is a template to be used when creating a new repository containing sample code, a sample application, or some other software related to Cisco technologies and to be made available for use by the Cisco DevNet community through Code Exchange.
+![](./documentation/images/code_for_catalyst_logo.png)
 
-## Instructions
+This project uses the application hosting feature of the Catalyst 9K as a distributed platform for gathering and pushing security data to Phantom. This data can be combined with other enrichment sources, and as a trigger for automating incident response.
 
-1. Create a new repository.
-2. Copy these files into the new repository.
-3. Update the [README](./README.md), replacing the contents below as described in text within each section of the README. Feel free to combine or omit sections where appropriate. 
-4. Update the [LICENSE](./LICENSE), replacing the file with the license selected for your code. See the *Licensing info* section of this README for more info. 
-5. Delete these instructions and everything up to the _Project Title_ from the README.
-6. Write some great software and tell people about it.
+### Technology Value
 
-----
+### Components
+
+**SOAR** Splunk Phantom: Security Orchestration, Automation and Response (SOAR)
+
+**Linux Containers** Docker:
+
+**Application Hosting** Catalyst 9K
+
+### Status
+
+trigger Phantom into action, such as incidents, threat indicators, vulnerabilities, emails, and more. Phantom gives you full access to the contents of your security data for the purposes of automated decision making.
+Splunk Phantom Security Orchestration
+
 
 # Project Title
 
