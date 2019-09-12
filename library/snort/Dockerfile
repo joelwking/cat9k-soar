@@ -24,8 +24,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim
 #
 # Add the Snort local.rules and the configuration file
 #
-COPY ./snort.conf /etc/snort/snort.conf
-COPY ./local.rules /etc/snort/rules/local.rules
+COPY ./snort/snort.conf /etc/snort/snort.conf
+COPY ./snort/local.rules /etc/snort/rules/local.rules
 
 #
 # Add Python code and configuration file

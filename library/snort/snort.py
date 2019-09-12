@@ -82,11 +82,11 @@ class Snort(SOAR):
                 self.msg('WARN: length of keys does not match CSV values provided, ignoring record: {}'.format(value))
                 return
             else:
-                self.create_phantom_container(phantom)
+                self.create_phantom_container(phantom, dict(name=self.args.get('msg_tag'), description='Code-for-Catalyst', tags=['snort']))
 
                 artifact = dict(name=alert.get('msg'),
                                 source_data_identifier='{}:{}'.format(alert.get('sig id'), alert.get('sig rev')),
-                                description='Code-for-Catalyst challenge',
+                                description='DESCRIPTION',
                                 tags=['snort', 'demo']
                                 )
 
