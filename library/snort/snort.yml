@@ -1,6 +1,6 @@
 ---
 #
-#  configuration file for parse_alerts.py
+#  configuration file for snort.py
 #      
 alert_csv: /var/log/snort/alert.csv
 msg_tag: '__cat9K_'

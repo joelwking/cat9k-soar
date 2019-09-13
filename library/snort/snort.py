@@ -27,16 +27,15 @@ class Snort(SOAR):
 
     def __init__(self):
         """
-        Instance variables
+            Call the SOAR init first
         """
-        # Call the SOAR init first
+        
         super(Snort, self).__init__()
 
 
     def tail(self, file_):
         """
-            Listen for new lines added to file.
-            http://lethain.com/tailing-in-python/
+            Listen for new lines added to file refer to: http://lethain.com/tailing-in-python/
         """
 
         while True:
@@ -106,11 +105,12 @@ class Snort(SOAR):
 
     def handle_action(self):
         """
+            Create a Phantom object loaded with the IP and credentials from the configuration file
+            Open the Snort alert file (CSV format) 
+            As lines are added to the file, process them
         """
         self.msg('INFO: entering handle_action')
-        #
-        # Tail the Snort Alert file (in CSV format) process only new records
-        #
+
         phantom = self.create_phantom_object(self.args.get('phantom').get('public_ip'), self.args.get('phantom').get('ph_auth_token'))
 
         with open(self.args.get('alert_csv', '/var/log/snort/alert.csv'), 'r') as alert_file:
@@ -125,6 +125,9 @@ class Snort(SOAR):
 
 
 if __name__ == '__main__':
+    """
+        Instanciate an instance of the Snort class and invoke the main logic
+    """
 
     connector = Snort()
     connector.handle_action()

@@ -28,10 +28,10 @@ class Hello(SOAR):
 
     def __init__(self):
         """
-            Instance variables
+            Call the SOAR init first
         """
 
-        super(Hello, self).__init__()                      # Call the SOAR init first
+        super(Hello, self).__init__()
 
 
     def handle_action(self):

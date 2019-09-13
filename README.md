@@ -33,12 +33,14 @@ The file `library/connector/base_connector.py` contains a Python class *SOAR*, w
 ___
 ##### hello_phantom
 
-This Docker app is a basic 'hello world' example which creates an event (container) in Phantom.
+This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits.
 
 ___
 ##### snort
 
 This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
+
+___
 
 ### Status
 
@@ -67,7 +69,7 @@ Refer to the README specified for each app for additional information on configu
 
 ## Usage
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![Video Demonstration](./documentation/images/cat9k-soar_topology.png)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 
 Show users how to use the code. Be specific.
 Use appropriate formatting when showing code snippets or command line output.
