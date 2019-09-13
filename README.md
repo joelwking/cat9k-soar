@@ -30,13 +30,15 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py`.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to address the Phantom REST APIs. 
 
+___
 ##### hello_phantom
 
 This Docker app is a basic 'hello world' example which creates an event (container) in Phantom.
 
+___
 ##### snort
 
-This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, free and lightweight network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
+This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
 
 ### Status
 
@@ -65,6 +67,8 @@ Refer to the README specified for each app for additional information on configu
 
 ## Usage
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
 Show users how to use the code. Be specific.
 Use appropriate formatting when showing code snippets or command line output.
 If a particular [DevNet Sandbox](https://developer.cisco.com/sandbox/) or [Learning Lab](https://developer.cisco.com/learning-labs/) can be used in to provide a network or other resources to be used with this code, call that out here. 
@@ -88,7 +92,7 @@ This repository highlights the emerging technical skills for a new kind of netwo
 * Python programming
 * Source Control Management systems (Git)
 * Linux
-* Cloud, Virtualization and containers (Docker)
+* Cloud, Virtualization and Containers (Docker)
 
 We encourage all network and security operations engineers to use this repository as a guide and framework to develop and enable additional use cases and enable additional functionality
 
@@ -96,6 +100,11 @@ Refer to the instructions on how to contribute in [CONTRIBUTING](./CONTRIBUTING.
 
 ## Credits and references
 
-1. Projects that inspired you
-2. Related projects
-3. Books, papers, talks, or other sources that have meaningful impact or influence on this code
+1. https://blogs.cisco.com/developer/code-for-catalyst-challenge-is-now-open
+2. Official documents https://www.snort.org/#get-started
+3. White paper on app hosting https://www.cisco.com/c/dam/en/us/products/collateral/switches/catalyst-9300-series-switches/white-paper-c87-742415.pdf
+4. Formatting the alert file output https://users.du.se/~hjo/cs/common/books/Log%20Parser/9781932266528.PDF
+5. https://searchitchannel.techtarget.com/feature/Snortconf-output-options
+6. https://www.sciencedirect.com/topics/computer-science/snort-configuration-file
+7. https://www.techrepublic.com/article/using-snort-for-intrusion-detection/
+8. Common Event Format https://kc.mcafee.com/resources/sites/MCAFEE/content/live/CORP_KNOWLEDGEBASE/78000/KB78712/en_US/CEF_White_Paper_20100722.pdf
