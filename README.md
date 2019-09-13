@@ -46,7 +46,7 @@ ___
 
 Alpha 1.0 - The base functionality of the software has been tested and Phantom containers and artifacts can be created by the software running in Docker containers in a Linux host, to a Phantom community instance (version 4.5.15922) deployed in Amazon Web Services (AWS). Additional testing scheduled for the [DevNet Sandbox](https://developer.cisco.com/site/sandbox/) as reservations become available mid-September 2019. 
 
-## Installation
+### Installation
 
 Information on installing and configuring Splunk Phantom is available by joining the Phantom Community or through training.
 
@@ -59,7 +59,7 @@ Build instructions for each app in the `library` directory are included the `REA
 
 Instructions for deploying the app(s) are available on DevNet as [Application Hosting in the Enterprise](https://developer.cisco.com/docs/app-hosting).
 
-## Configuration
+### Configuration
 
 The `base_connector` class SOAR attempts to load a configuration file, by default, using the program name and '.yml' or by a YAML file specified as the first argument to the program. Sample configuration and credential inputs are read from the YAML file in the respective directories, for example, `library/hello_phantom/hello.yml` specifies the IP address and API key for the Phantom instance.
 
@@ -67,15 +67,13 @@ Optionally, variables can be specified and are imported. For example, `snort_con
 
 Refer to the README specified for each app for additional information on configuring the app.
 
-## Usage
+### Usage
 
-[![Video Demonstration](./documentation/images/cat9k-soar_topology.png)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+First review the [README](./library/hello_phantom/README.md) from the `hello_phantom` app. Then review the `snort` [README](./library/snort/README.md) and watch the following video demonstration.
 
-Show users how to use the code. Be specific.
-Use appropriate formatting when showing code snippets or command line output.
-If a particular [DevNet Sandbox](https://developer.cisco.com/sandbox/) or [Learning Lab](https://developer.cisco.com/learning-labs/) can be used in to provide a network or other resources to be used with this code, call that out here. 
+[![Video Demonstration](./documentation/images/video_icon.png)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 
-## Known issues
+### Known issues
 
 Use the the [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues), to open a new issue or provide feedback. 
 
@@ -83,11 +81,11 @@ Use the the [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues), to 
 * Note the [restrictions](https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup) on Catalyst hardware and software.
 * The app-hosting service utilizes meta data that will be present only when the Docker save command uses the  *image_name:tag* format. 
 
-## Getting help
+### Getting help
 
 If you have questions, concerns, bug reports, etc., please file an issue in this repository's [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues).
 
-## Getting involved
+### Getting involved
 
 This repository highlights the emerging technical skills for a new kind of network engineer who must have a basic understanding of applications, programming and infrastructure, both on-prem and in a cloud. Additionally, enabling the network to be a source of telemetry data will be instrumental in improving the security posture of any organization. This solution provides a network engineer with access to a framework which enables skill development in the following areas:
 
@@ -100,13 +98,13 @@ We encourage all network and security operations engineers to use this repositor
 
 Refer to the instructions on how to contribute in [CONTRIBUTING](./CONTRIBUTING.md).
 
-## Credits and references
+### Credits and references
 
-1. https://blogs.cisco.com/developer/code-for-catalyst-challenge-is-now-open
-2. Official documents https://www.snort.org/#get-started
-3. White paper on app hosting https://www.cisco.com/c/dam/en/us/products/collateral/switches/catalyst-9300-series-switches/white-paper-c87-742415.pdf
-4. Formatting the alert file output https://users.du.se/~hjo/cs/common/books/Log%20Parser/9781932266528.PDF
-5. https://searchitchannel.techtarget.com/feature/Snortconf-output-options
-6. https://www.sciencedirect.com/topics/computer-science/snort-configuration-file
-7. https://www.techrepublic.com/article/using-snort-for-intrusion-detection/
-8. Common Event Format https://kc.mcafee.com/resources/sites/MCAFEE/content/live/CORP_KNOWLEDGEBASE/78000/KB78712/en_US/CEF_White_Paper_20100722.pdf
+1. Code for Catalyst Challenge: https://blogs.cisco.com/developer/code-for-catalyst-challenge-is-now-open
+2. Snort official documents: https://www.snort.org/#get-started
+3. White paper on app hosting: https://www.cisco.com/c/dam/en/us/products/collateral/switches/catalyst-9300-series-switches/white-paper-c87-742415.pdf
+4. Snort formatting the alert file output: https://users.du.se/~hjo/cs/common/books/Log%20Parser/9781932266528.PDF
+5. Snort.conf output options: https://searchitchannel.techtarget.com/feature/Snortconf-output-options
+6. Learn more about Snort Configuration File: https://www.sciencedirect.com/topics/computer-science/snort-configuration-file
+7. Using Snort for intrusion detection: https://www.techrepublic.com/article/using-snort-for-intrusion-detection/
+8. Common Event Format: https://kc.mcafee.com/resources/sites/MCAFEE/content/live/CORP_KNOWLEDGEBASE/78000/KB78712/en_US/CEF_White_Paper_20100722.pdf
