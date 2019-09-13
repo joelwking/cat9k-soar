@@ -75,7 +75,7 @@ Refer to the README specified for each app for additional information on configu
 
 First review the [README](./library/hello_phantom/README.md) from the `hello_phantom` app. Then review the `snort` [README](./library/snort/README.md) and watch the following video demonstration.
 
-[![Video Demonstration](./documentation/images/video_icon.png)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![Video Demonstration](./documentation/images/video_icon.png)](https://vimeo.com/359849536)
 
 ### Known issues
 
