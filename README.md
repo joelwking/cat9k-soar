@@ -4,7 +4,7 @@ Application Hosting on the Catalyst 9K, an interface to Splunk Phantom security 
 
 ![](./documentation/images/code_for_catalyst_logo.png)
 
-This project uses the application hosting feature of the Catalyst 9K as a distributed platform for gathering and pushing security data to Phantom. This data can be combined with other enrichment sources, and as a trigger for automating incident response.
+This project uses the application hosting feature of the Catalyst 9K as a distributed platform for gathering and pushing security data to Phantom. This structured data can be combined with other enrichment sources, and as a trigger for automating incident response within Splunk Phantom.
 
 ### Technology Value
 
@@ -14,31 +14,35 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 ### Components
 
-**SOAR**: The acronym SOAR, Security Orchestration, Automation and Response is a process and concept of managing contextual data associated with cyber attacks and security related incidents. The SOAR platform **Splunk Phantom** fundamental to this solution. World Wide Technolgy has developed both apps and data ingest [software](https://github.com/joelwking/Phantom-Cyber) for the **Splunk Phantom** platform, which is leveraged in this solution.
+* **SOAR**: The acronym SOAR, Security Orchestration, Automation and Response is a process and concept of managing contextual data associated with cyber attacks and security related incidents. The SOAR platform **Splunk Phantom** is fundamental to this solution. World Wide Technology has developed both apps and data ingest [software](https://github.com/joelwking/Phantom-Cyber) for the **Splunk Phantom** platform, which is used in this solution.
 
-**Linux Containers**: specifically Docker, building software solutions using Docker containerization shortens development cycles and decreases the barriers to deploying apps on the target systems. In this solution, applications are developed and packaged on Linux systems and then installed on the network edge running on Catalyst 9300 series switches.
+* **Linux Containers**: Specifically Docker, enables building software solutions using containerization shortens development cycles and decreases the barriers to deploying apps on the target systems. In this solution, applications are developed and packaged on Linux systems and then installed on the network edge running on Catalyst 9300 series switches.
 
-**Application Hosting**: The Cisco Catalyst 9300 series switches now supports application hosting using reserved memory and CPU, running as a separate Linux process, isolated from the IOS XE operating system. This solution is beneficial to the network manager as it does not require separate computing machines to run the software on the network edge. 
+* **Application Hosting**: The Cisco Catalyst 9300 series switch now supports application hosting using reserved memory and CPU, running as a separate Linux process, isolated from the IOS XE operating system. This solution is beneficial to the network manager as it does not require separate computing machines to run the software on the network edge. 
 
-**Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom *containers*) and security data (Phantom *artifacts*) on the Splunk Phantom platform. Within the `library` directory, there are two sub-directories, `hello_phantom` and `snort`. 
+* **Catalyst 9K SOAR**: The Python software contained in this solution includes foundational code to create security events (Phantom *containers*) and security data (Phantom *artifacts*) on the Splunk Phantom platform. Within the `library` directory, there are two sub-directories, `hello_phantom` and `snort`, which can be deployed as apps on the Catalyst 9300 series.
 
 #### Topology Diagram
+
+This topology diagram illustrates that multiple apps can be installed and executed on the Catalyst 9300 series, using the REST API interface on a Splunk Phantom instance to ingest structured data gleaned from the network edge to the SOAR platform for analysis and action by the security operations center.
 
 ![](./documentation/images/cat9k-soar_topology.png)
 
 #### Software
 
-The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py`.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to address the Phantom REST APIs. 
+The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py` apps.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to interact with the Phantom REST APIs. 
 
 ___
 ##### hello_phantom
 
-This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits.
+This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits. It can be used as a template to develop your own data collection applications as telemetry to Splunk Phantom.
 
 ___
 ##### snort
 
 This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
+
+Using Snort to act as an intrusion detection system integrated with Software Defined Networking (SDN) concepts have been demonstrated as a  Security-Defined Routing use case. Refer to the  [cybergamut](http://cybergamut.com/2014/10/technical-tuesday-28-october-2014-software-defined-networking-by-joel-king-of-world-wide-technology/) talk and [slides](https://www.slideshare.net/joelwking/security-defined-routingcybergamutv11) as well as a [video demonstration ](https://www.youtube.com/watch?v=KvZuklmi9uU).
 
 ___
 
@@ -53,7 +57,7 @@ Information on installing and configuring Splunk Phantom is available by joining
 * Phantom Community https://my.phantom.us/
 * Administering Phantom https://www.splunk.com/en_us/training/courses/introduction-to-phantom.html
 
-At a minimum, the REST Data Source app will need to be enabled and configured on the Phantom instance. This app is a custom REST handler to allow push/ ingest data such as events and artifacts into Phantom.
+At a minimum, the REST Data Source app will need to be enabled and configured on the Phantom instance. This app is a custom REST handler to allow push/ingest data such as events and artifacts into Phantom.
 
 Build instructions for each app in the `library` directory are included the `README.md` file.
 
