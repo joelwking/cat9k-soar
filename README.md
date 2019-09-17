@@ -6,6 +6,8 @@ Application Hosting on the Catalyst 9K, an interface to Splunk Phantom security 
 
 This project uses the application hosting feature of the Catalyst 9K as a distributed platform for gathering and pushing security data to Phantom. This structured data can be combined with other enrichment sources, and as a trigger for automating incident response within Splunk Phantom.
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/joelwking/cat9k-soar)
+
 ### Technology Value
 
 Application hosting at the network edge, on the Cisco Catalyst 9300 series switches, enables the network manager to deploy applications on an x86 CPU for the purpose of analyzing and gathering telemetry about traffic on the network. Container based applications can be developed and tested using Docker on Linux systems, then deployed on the Catalyst 9300 series switches, providing the network and security operations a distributed cyber security interface to the enterprise security orchestration, automation and response (SOAR) platform.
@@ -24,7 +26,7 @@ The `cat9k-soar` project is a sample code base for ingesting data collected at t
 
 #### Topology Diagram
 
-This topology diagram illustrates that multiple apps can be installed and executed on the Catalyst 9300 series, using the REST API interface on a Splunk Phantom instance to ingest structured data gleaned from the network edge to the SOAR platform for analysis and action by the security operations center.
+This topology diagram illustrates that multiple apps can be installed and executed on the Catalyst 9300 series, using the REST API interface on a Splunk Phantom instance to ingest structured data, gleaned from the network edge, to the SOAR platform for analysis and action by the security operations center.
 
 ![](./documentation/images/cat9k-soar_topology.png)
 
@@ -32,17 +34,17 @@ This topology diagram illustrates that multiple apps can be installed and execut
 
 The file `library/connector/base_connector.py` contains a Python class *SOAR*, which is imported and referenced as a Python superclass by the `library/hello_phantom/hello.py` and `library/snort/snort.py` apps.  The `base_connector.py` imports [https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py](https://github.com/joelwking/Phantom-Cyber/blob/master/REST_ingest/PhantomIngest.py) which uses the Python `requests` module to interact with the Phantom REST APIs. 
 
-___
-##### hello_phantom
+> ___
+> ##### hello_phantom
 
-This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits. It can be used as a template to develop your own data collection applications as telemetry to Splunk Phantom.
+> This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits. It can be used as a template to develop your own data collection applications as telemetry to Splunk Phantom.
 
-___
-##### snort
+> ___
+> ##### snort
 
-This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
+> This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
 
-Using Snort to act as an intrusion detection system integrated with Software Defined Networking (SDN) concepts have been demonstrated as a  Security-Defined Routing use case. Refer to the  [cybergamut](http://cybergamut.com/2014/10/technical-tuesday-28-october-2014-software-defined-networking-by-joel-king-of-world-wide-technology/) talk and [slides](https://www.slideshare.net/joelwking/security-defined-routingcybergamutv11) as well as a [video demonstration ](https://www.youtube.com/watch?v=KvZuklmi9uU).
+> Using Snort to act as an intrusion detection system integrated with Software Defined Networking (SDN) concepts have been demonstrated as a  Security-Defined Routing use case. Refer to the  [cybergamut](http://cybergamut.com/2014/10/technical-tuesday-28-october-2014-software-defined-networking-by-joel-king-of-world-wide-technology/) talk and [slides](https://www.slideshare.net/joelwking/security-defined-routingcybergamutv11) as well as a [video demonstration ](https://www.youtube.com/watch?v=KvZuklmi9uU).
 
 ___
 
@@ -81,9 +83,9 @@ First review the [README](./library/hello_phantom/README.md) from the `hello_pha
 
 Use the the [Issue Tracker](https://github.com/joelwking/cat9k-soar/issues), to open a new issue or provide feedback. 
 
-* The DevNet Sandbox restricts access to the Internet from the sandbox labs, limiting access to an instance of Phantom deployed in AWS/cloud or the Internet.
-* Note the [restrictions](https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup) on Catalyst hardware and software.
-* The app-hosting service utilizes meta data that will be present only when the Docker save command uses the  *image_name:tag* format. 
+  * The DevNet Sandbox restricts access to the Internet from the sandbox labs, limiting access to an instance of Phantom deployed in AWS/cloud or the Internet.
+  * Note the [restrictions](https://developer.cisco.com/docs/app-hosting/#!getting-cat9k-setup) on Catalyst hardware and software.
+  * The app-hosting service utilizes meta data that will be present only when the Docker save command uses the  *image_name:tag* format. 
 
 ### Getting help
 
