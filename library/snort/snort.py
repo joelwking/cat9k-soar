@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#     Copyright (c) 2019 World Wide Technology, Inc.
+#     Copyright (c) 2019 World Wide Technology, LLC
 #     All rights reserved.
 #
 #     author: joel.king@wwt.com (@joelwking)
 #     written:  9 September 2019
 #
-#     description: snort.py
+#     description: Tails a Snort Alert file (CSV) and creates Phantom containers and artifacts
 #
 # 
 # Import the SOAR class from the base_connector.py file

@@ -36,17 +36,17 @@ The file `library/connector/base_connector.py` contains a Python class *SOAR*, w
 
 > ___
 > ##### hello_phantom
-
+>
 > This Docker app is a basic 'hello world' example which creates an event (container) in Phantom, then exits. It can be used as a template to develop your own data collection applications as telemetry to Splunk Phantom.
-
+>
 > ___
 > ##### snort
-
+>
 > This Docker app installs, configures and executes Snort. [Snort](https://www.snort.org) is an open-source, network intrusion detection system (NIDS). The Snort configuration file enables alerts to be written to a CSV file. Alerts written to the file are processed by `snort.py` and used to create events (containers) and artifacts in CEF (Common Exchange Format) format. The shell `snort.sh` starts both Snort and the Python program.
-
+>
 > Using Snort to act as an intrusion detection system integrated with Software Defined Networking (SDN) concepts have been demonstrated as a  Security-Defined Routing use case. Refer to the  [cybergamut](http://cybergamut.com/2014/10/technical-tuesday-28-october-2014-software-defined-networking-by-joel-king-of-world-wide-technology/) talk and [slides](https://www.slideshare.net/joelwking/security-defined-routingcybergamutv11) as well as a [video demonstration ](https://www.youtube.com/watch?v=KvZuklmi9uU).
-
-___
+>
+> ___
 
 ### Status
 

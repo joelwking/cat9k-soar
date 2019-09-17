@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#     Copyright (c) 2019 World Wide Technology, Inc.
+#     Copyright (c) 2019 World Wide Technology, LLC
 #     All rights reserved.
 #
 #     author: joel.king@wwt.com (@joelwking)
